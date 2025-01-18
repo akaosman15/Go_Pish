@@ -3,11 +3,11 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route("/")
-@app.route("/login.html", methods=["GET", "POST"])
-def login():
+@app.route("/index.html", methods=["GET", "POST"])
+def index():
     if request.method == "POST":
         return render_template("redirect.html")
-    return render_template("login.html")
+    return render_template("index.html")
 
 @app.route("/redirect.html")
 def redirect_page():
