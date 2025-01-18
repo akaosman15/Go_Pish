@@ -2,8 +2,8 @@ import smtplib
 from email.mime.text import MIMEText
 
 # Email details
-from_email = "jeffspear1987@gmail.com"  # The spoofed sender's email address
-to_email = "aaosman15@gmail.com"       # Replace with the TA's actual email
+from_email = "je"  # The spoofed sender's email address
+to_email = "aa"       # Replace with the TA's actual email
 subject = "[Action Required] Secure Your University Portal Account"
 body = """
 Dear TA,
@@ -30,8 +30,8 @@ msg["To"] = to_email
 # SMTP server configuration
 smtp_server = "smtp.gmail.com"  # Replace with your SMTP server
 smtp_port = 587                 # Replace with your SMTP server port
-smtp_username = "jeffspear1987@gmail.com"  # Replace with your email
-smtp_password = "Ao203-6652!"  # Replace with your password
+smtp_username = "jeff"  # Replace with your email
+smtp_password = "A"  # Replace with your password
 
 # Send the email
 try:
