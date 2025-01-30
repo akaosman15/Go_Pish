@@ -51,6 +51,13 @@
     <!-- Fake Decryption Tool -->
     <p>Download the decryption tool: <a href="decryption_tool.txt" download>Click Here</a></p>
 
+    <!-- Fake Chat Interface -->
+    <div id="chat">
+        <p><strong>Attacker:</strong> Pay the ransom to decrypt your files.</p>
+        <input type="text" id="chat-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
     <script>
         // Timer logic
         let hours = 48;
@@ -79,6 +86,19 @@
         }
 
         const timerInterval = setInterval(updateTimer, 1000);
+
+        // Simulate Real-Time Updates
+        setTimeout(() => {
+            document.getElementById('timer').textContent = "Payment Received! Decrypting files...";
+        }, 5000); // Simulate a response after 5 seconds
+
+        // Chat Interface
+        function sendMessage() {
+            const input = document.getElementById('chat-input').value;
+            const chat = document.getElementById('chat');
+            chat.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+            chat.innerHTML += `<p><strong>Attacker:</strong> Pay the ransom to decrypt your files.</p>`;
+        }
     </script>
 </body>
 </html>
