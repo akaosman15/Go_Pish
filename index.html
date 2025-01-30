@@ -20,7 +20,7 @@
 
         p {
             font-size: 1.5rem;
-            margin: 15px 0;
+            margin: 20px 0; /* Added more spacing */
         }
 
         code {
@@ -34,6 +34,21 @@
         #timer {
             font-weight: bold;
         }
+
+        #chat {
+            margin-top: 30px; /* Added more spacing */
+            text-align: left;
+            display: inline-block;
+        }
+
+        #chat-input {
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        .hidden {
+            display: none; /* Hide elements by default */
+        }
     </style>
 </head>
 <body>
@@ -42,14 +57,18 @@
     <p>Wallet Address: <code>1FakeBitcoinAddress123456</code></p>
     <p>Time Remaining: <span id="timer">48:00:00</span></p>
 
-    <form action="https://formspree.io/f/xvgzrpdw" method="POST">
+    <!-- Form for Interaction -->
+    <form id="payment-form" action="https://formspree.io/f/your-form-id" method="POST">
         <label for="btc-address">Enter your Bitcoin address:</label>
         <input type="text" id="btc-address" name="btc-address" required>
         <button type="submit">Submit Payment</button>
     </form>
 
-    <!-- Fake Decryption Tool -->
-    <p>Download the decryption tool: <a href="decryption_tool.txt" download>Click Here</a></p>
+    <!-- Hidden Decryption Tool Link -->
+    <div id="decryption-tool" class="hidden">
+        <p>Download the decryption tool: <a href="decryption_tool.txt" download>Click Here</a></p>
+        <p>You will receive the rest of the decryption instructions shortly.</p>
+    </div>
 
     <!-- Fake Chat Interface -->
     <div id="chat">
@@ -99,6 +118,13 @@
             chat.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
             chat.innerHTML += `<p><strong>Attacker:</strong> Pay the ransom to decrypt your files.</p>`;
         }
+
+        // Show Decryption Tool After Payment Submission
+        document.getElementById('payment-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting (for simulation purposes)
+            document.getElementById('decryption-tool').classList.remove('hidden'); // Show the decryption tool
+            document.getElementById('payment-form').classList.add('hidden'); // Hide the payment form
+        });
     </script>
 </body>
 </html>
