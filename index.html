@@ -108,15 +108,8 @@
 
         ////
         document.addEventListener("DOMContentLoaded", function() {
-        // Make the page full screen to simulate a locked system
-        document.documentElement.requestFullscreen();
-
         // Disable right-click to prevent user from easily escaping
         document.addEventListener("contextmenu", event => event.preventDefault());
-
-        // Play warning sound
-        let audio = new Audio('https://www.soundjay.com/button/beep-07.wav');
-        setInterval(() => audio.play(), 5000); // Play sound every 5 seconds
 
         // Simulate encryption by changing text dynamically
         let fakeEncryptionText = document.createElement("p");
